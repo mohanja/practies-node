@@ -15,26 +15,26 @@ await client.connect();
  console.log("Mongo is connected !!!");
 
 const PET=[{
- " id":"11",
-  "image": "https://th.bing.com/th/id/OIP.GeAA0FO3BwC_e47_zDJbsgHaEo?pid=ImgDet&rs=1",
-  "amount": "1000",
-  "name": "doper dog",
- "location" : "salem,tamilnadu",
-"gender":"mael"
+ id:"11",
+  image:"https://th.bing.com/th/id/OIP.GeAA0FO3BwC_e47_zDJbsgHaEo?pid=ImgDet&rs=1",
+  amount:"1000",
+  name:"doper dog",
+ location:"salem,tamilnadu",
+gender:"mael"
 },
-{  " id":"12",
-"image": "https://th.bing.com/th/id/OIP.GeAA0FO3BwC_e47_zDJbsgHaEo?pid=ImgDet&rs=1",
-"amount": "1000",
-"name": "doper dog",
-"location" : "salem,tamilnadu",
-"gender":"mael"
+{  id:"12",
+image:"https://th.bing.com/th/id/OIP.GeAA0FO3BwC_e47_zDJbsgHaEo?pid=ImgDet&rs=1",
+amount:"1000",
+name:"doper dog",
+location:"salem,tamilnadu",
+gender:"mael"
 }, {
-  " id":"13",
-  "image": "https://th.bing.com/th/id/OIP.GeAA0FO3BwC_e47_zDJbsgHaEo?pid=ImgDet&rs=1",
-  "amount": "1000",
-  "name": "doper dog",
- "location" : "salem,tamilnadu",
-"gender":"mael"
+  id:"13",
+  image:"https://th.bing.com/th/id/OIP.GeAA0FO3BwC_e47_zDJbsgHaEo?pid=ImgDet&rs=1",
+  amount:"1000",
+  name:"doper dog",
+ location:"salem,tamilnadu",
+gender:"mael"
 }]
 const HOSPITAL=[{
 "id":"21",
@@ -135,11 +135,11 @@ app.get("/",function (rrequest,response){
 
 });
 
-app.get("/pets", async function (request, response) {
+app.get("/pet", async function (request, response) {
   if (request.query.amount) {
     request.query.amount = +request.query.amount;
   }
-  const pet = await client.db("shop").collection("PET").find(request.query).toArray();
+  const pet = await client.db("shop").collection("PETS").find(request.query).toArray();
   response.send(pet);
 
 });
@@ -167,11 +167,11 @@ app.get("/metrial", async function (request, response) {
   response.send(metrial);
 
 });
-app.get("/pets/:id", async function (request, response) {
+app.get("/pet/:id", async function (request, response) {
   const { id } = request.params;
   // console.log(request.params.id)  
   // const pet=PET.filter((pet)=>pet.id===id)
-  const pets = await client.db('shop').collection('PET').findOne({ id: id });
+  const pets = await client.db('shop').collection('PETS').findOne({ id: id });
   
   pets ? response.send(pets) : response.send({ message: "pet is not founnd" });
 });
@@ -205,10 +205,10 @@ app.post("/shop", async function (request, response) {
   response.send(result);
 
 });
-app.post("/pets", async function (request, response) {
+app.post("/pet", async function (request, response) {
   const data = request.body;
   console.log(data);
-  const result = await client.db('shop').collection('PET').insertMany(data);
+  const result = await client.db('shop').collection('PETS').insertMany(data);
 
   response.send(result);
 
@@ -229,11 +229,11 @@ app.post("/metrial", async function (request, response) {
   response.send(result);
 
 });
-app.delete("/pets/:id", async function (request, response) {
+app.delete("/pet/:id", async function (request, response) {
   const { id } = request.params;
   // console.log(request.params.id)
   // const hosptial=HOSPITAL.filter((pet)=>pet.id===id)
-  const result = await client.db('shop').collection('PET').deleteOne({ id: id });
+  const result = await client.db('shop').collection('PETS').deleteOne({ id: id });
   console.log(result);
   result.deletedCount > 0 ? response.send({ message: "delete succesfully" }) : response.status(404).send({ message: "pet is not founnd" });
 });
@@ -261,12 +261,12 @@ app.delete("/metrial/:id", async function (request, response) {
   console.log(result);
   result.deletedCount > 0 ? response.send({ message: "delete succesfully" }) : response.status(404).send({ message: "metrial is not founnd" });
 });
-app.put("/pets/:id", async function (request, response) {
+app.put("/pet/:id", async function (request, response) {
   const { id } = request.params;
   const data = request.body;
   // console.log(request.params.id)  
   // const pet=PET.filter((pet)=>pet.id===id)
-  const result = await client.db('shop').collection('PET').updateOne({ id: id }, { $set: data });
+  const result = await client.db('shop').collection('PETS').updateOne({ id: id }, { $set: data });
   console.log(result);
   response.send(result);
 });
