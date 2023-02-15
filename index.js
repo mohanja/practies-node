@@ -172,7 +172,7 @@ app.get("/pets/:id", async function (request, response) {
   // console.log(request.params.id)  
   // const pet=PET.filter((pet)=>pet.id===id)
   const pet = await client.db('shop').collection('PET').findOne({ id: id });
-  console.log(pet);
+  
   pet ? response.send(pet) : response.send({ message: "pet is not founnd" });
 });
 app.get("/hosptial/:id", async function (request, response) {
